@@ -14,11 +14,11 @@
     <tr>
         <td width="20"> </td>
         <td>
-            <h2> Add New Customer Details</h2>
+            <h2>  Employee Details </h2>
         </td>
         <td> </td>
         <td align="right">
-            <button class="btn btn-info" @onclick="@AddNewEmployee">Add New Customer</button>
+            <button class="btn btn-info" @onclick="@AddNewEmployee">Add New Employee</button>
         </td>
         <td width="10"> </td>
     </tr>
@@ -31,22 +31,13 @@
 {
     <form>
         <table class="form-group">
-            <tr>
-                <td>
-                    <label for="Name" class="control-label">EmployeeId</label>
-                </td>
-                <td>
-                    <input type="text" class="form-control" @bind="@employee.EmployeeId" />
-                </td>
-                <td width="20"> </td>
+       <tr>
                 <td>
                     <label for="Name" class="control-label">Employee Name</label>
                 </td>
                 <td>
                     <input type="text" class="form-control" @bind="@employee.Name" />
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <label for="Email" class="control-label">Department</label>
                 </td>
@@ -61,7 +52,7 @@
                 </td>
                 <td width="20"> </td>
                 <td>
-                    <label for="Name" class="control-label">Phone</label>
+                    <label for="Name" class="control-label">Gender</label>
                 </td>
                 <td>
                     <input type="text" class="form-control" @bind="@employee.Gender" />
@@ -76,7 +67,7 @@
     <tr>
         <td width="20"> </td>
         <td>
-            <h2>Customer List</h2>
+            <h2>Employee List</h2>
         </td>
 
     </tr>
@@ -85,7 +76,7 @@
     </tr>
 </table>
 
-@if (custs == null)
+@if (employeeList == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -101,16 +92,16 @@ else
            </tr>
         </thead>
         <tbody>
-            @foreach (var cust in custs)
+            @foreach (var emp in employeeList)
             {
                 <tr>
-                    <td>@cust.EmployeeId</td>
-                    <td>@cust.Name</td>
-                    <td>@cust.Department</td>
-                    <td>@cust.Gender</td>
-                    <td><button class="btn btn-primary" @onclick="@(async () => await EditCustomer(employee.EmployeeId))" style="width:110px;">Edit</button></td>
+                    <td>@emp.EmployeeId</td>
+                    <td>@emp.Name</td>
+                    <td>@emp.Department</td>
+                    <td>@emp.Gender</td>
+                    <td><button class="btn btn-primary" @onclick="@(async () => await EditCustomer(emp.EmployeeId))" style="width:110px;">Edit</button></td>
 
-                    <td><button class="btn btn-danger" @onclick="@(async () => await DeleteCustomer(employee.EmployeeId))">Delete</button></td>
+                    <td><button class="btn btn-danger" @onclick="@(async () => await DeleteCustomer(emp.EmployeeId))">Delete</button></td>
                 </tr>
 
             }
@@ -121,7 +112,7 @@ else
 
 @code {
 
-    private Employee[] custs;
+    private Employee[] employeeList;
 
     Employee employee = new Employee();
 
@@ -133,7 +124,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         ids = "0";
-        custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+        employeeList = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
     }
 
     void AddNewEmployee()
@@ -149,12 +140,12 @@ else
 
         {
             await Http.SendJsonAsync(HttpMethod.Post, "/api/Employee/", employee);
-            custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+            employeeList = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
         }
         else
         {
             await Http.SendJsonAsync(HttpMethod.Put, "/api/Employee/" + employee.EmployeeId, employee);
-            custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+            employeeList = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
         }
 
         showAddrow = false;
@@ -190,7 +181,7 @@ else
         ids = employeeId.ToString();
         await Http.DeleteAsync("/api/Employee/" + employeeId);
 
-        custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+        employeeList = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
     }
 
 }

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Jitendra\\Workplace\\jitendra project\\Blazor\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj": {}
+    "C:\\Workspace\\My Project\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj": {}
   },
   "projects": {
-    "C:\\Jitendra\\Workplace\\jitendra project\\Blazor\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj": {
+    "C:\\Workspace\\My Project\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Jitendra\\Workplace\\jitendra project\\Blazor\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj",
+        "projectUniqueName": "C:\\Workspace\\My Project\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj",
         "projectName": "BlazorEmployeeCrud",
-        "projectPath": "C:\\Jitendra\\Workplace\\jitendra project\\Blazor\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj",
-        "packagesPath": "C:\\Users\\jbehera\\.nuget\\packages\\",
-        "outputPath": "C:\\Jitendra\\Workplace\\jitendra project\\Blazor\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\obj\\",
+        "projectPath": "C:\\Workspace\\My Project\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\BlazorEmployeeCrud.csproj",
+        "packagesPath": "C:\\Users\\jbehera.BRIDGETREE\\.nuget\\packages\\",
+        "outputPath": "C:\\Workspace\\My Project\\BlazorEmployeeCrud\\BlazorEmployeeCrud\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jbehera\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jbehera.BRIDGETREE\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
