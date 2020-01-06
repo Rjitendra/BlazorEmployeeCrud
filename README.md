@@ -1,6 +1,7 @@
 # BlazorEmployeeCrudTable setup 
 
-create Database BzrEmployeeDB
+create Database BzrEmployeeDB,
+
 use BzrEmployeeDB
 Create table Employee(        
     EmployeeId int IDENTITY(1,1) NOT NULL,        
@@ -11,4 +12,4 @@ Create table Employee(
 	        
 ) 
 
-select * from Employee
+
