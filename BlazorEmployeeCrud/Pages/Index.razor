@@ -1,0 +1,196 @@
+﻿@page "/"
+
+
+
+@using BlazorEmployeeCrud
+
+@using System.Net.Http
+@inject HttpClient Http
+
+@using Microsoft.Extensions.Logging
+
+<hr />
+<table width="100%" style="background:#05163D;color:honeydew">
+    <tr>
+        <td width="20"> </td>
+        <td>
+            <h2> Add New Customer Details</h2>
+        </td>
+        <td> </td>
+        <td align="right">
+            <button class="btn btn-info" @onclick="@AddNewEmployee">Add New Customer</button>
+        </td>
+        <td width="10"> </td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+</table>
+<hr />
+@if (showAddrow == true)
+{
+    <form>
+        <table class="form-group">
+            <tr>
+                <td>
+                    <label for="Name" class="control-label">EmployeeId</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" @bind="@employee.EmployeeId" />
+                </td>
+                <td width="20"> </td>
+                <td>
+                    <label for="Name" class="control-label">Employee Name</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" @bind="@employee.Name" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Email" class="control-label">Department</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" @bind="@employee.Department" />
+                </td>
+                <td>
+                    <label for="Email" class="control-label">City</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" @bind="@employee.City" />
+                </td>
+                <td width="20"> </td>
+                <td>
+                    <label for="Name" class="control-label">Phone</label>
+                </td>
+                <td>
+                    <input type="text" class="form-control" @bind="@employee.Gender" />
+                    <button type="submit" class="btn btn-success" @onclick="@AddCustomer" style="width:220px;">Save</button>
+                </td>
+            </tr>
+          
+        </table>
+    </form>
+}
+<table width="100%" style="background:#0A2464;color:honeydew">
+    <tr>
+        <td width="20"> </td>
+        <td>
+            <h2>Customer List</h2>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+    </tr>
+</table>
+
+@if (custs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>EmployeeId</th>
+                <th>Employee Name</th>
+                <th>Department</th>
+                <th>Gender</th>
+           </tr>
+        </thead>
+        <tbody>
+            @foreach (var cust in custs)
+            {
+                <tr>
+                    <td>@cust.EmployeeId</td>
+                    <td>@cust.Name</td>
+                    <td>@cust.Department</td>
+                    <td>@cust.Gender</td>
+                    <td><button class="btn btn-primary" @onclick="@(async () => await EditCustomer(employee.EmployeeId))" style="width:110px;">Edit</button></td>
+
+                    <td><button class="btn btn-danger" @onclick="@(async () => await DeleteCustomer(employee.EmployeeId))">Delete</button></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    private Employee[] custs;
+
+    Employee employee = new Employee();
+
+    string ids = "0";
+    bool showAddrow = false;
+
+    bool loadFailed;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ids = "0";
+        custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+    }
+
+    void AddNewEmployee()
+    {
+        ids = "0";
+        showAddrow = true;
+        employee = new Employee();
+    }
+    // Add New Customer Details Method
+    protected async Task AddCustomer()
+    {
+        if (ids == "0")
+
+        {
+            await Http.SendJsonAsync(HttpMethod.Post, "/api/Employee/", employee);
+            custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+        }
+        else
+        {
+            await Http.SendJsonAsync(HttpMethod.Put, "/api/Employee/" + employee.EmployeeId, employee);
+            custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+        }
+
+        showAddrow = false;
+    }
+    // Edit Method
+    protected async Task EditCustomer(int employeeId)
+    {
+        showAddrow = true;
+
+        ids = "1";
+        //try
+        //{
+        loadFailed = false;
+        ids = employeeId.ToString();
+        employee = await Http.GetJsonAsync<Employee>("/api/Employee/" + employeeId);
+
+        string s = employee.EmployeeId.ToString();;
+
+        showAddrow = true;
+
+        //    }
+        //catch (Exception ex)
+        //{
+        //    loadFailed = true;
+        //    Logger.LogWarning(ex, "Failed to load product {ProductId}", CustomerID);
+        //}
+    }
+    // Delte Method
+    protected async Task DeleteCustomer(int employeeId)
+    {
+        showAddrow = false;
+
+        ids = employeeId.ToString();
+        await Http.DeleteAsync("/api/Employee/" + employeeId);
+
+        custs = await Http.GetJsonAsync<Employee[]>("/api/Employee/");
+    }
+
+}
