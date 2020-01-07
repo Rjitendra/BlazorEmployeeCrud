@@ -1,4 +1,4 @@
-# BlazorEmployeeCrudTable setup 
+# BlazorEmployeeCrud set up for sql setup 
 
 create Database BzrEmployeeDB,
 
